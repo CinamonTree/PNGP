@@ -1,9 +1,13 @@
 #include <vector>
 #include <cstdint>
+#include <stdexcept>
+
+#include "VectorUtils.hpp"
 
 class PNG {
     private:
-    enum class ChunkType {
+    enum class ChunkType 
+    {
       IHDR,
       PLTE,
       IDAT,
@@ -27,19 +31,25 @@ class PNG {
       tRNS,
       zTXt
     };
-    struct chunk {
+    struct chunk 
+    {
         uint8_t length[4];
         ChunkType chunkType;
         uint8_t* data;
         uint8_t CRC[4];
     };
-    PNG() {};
+    std::vector<uint8_t> data;
+
     public:
     PNG fromRaw(const std::vector<uint8_t>& bytesArray) 
     {
+        auto signature = VectorUtils::getSubset(bytesArray, (size_t) 0, (size_t) 7);
+        if (!isSignatureValid(signature)) 
+            throw std::runtime_error("Sigranure of given PNG file i incorect.");
 
     };
     private:
+    PNG() {};
     bool isSignatureValid(const std::vector<uint8_t>& signature) const
     {
         if (signature.size() < 8) return false;
