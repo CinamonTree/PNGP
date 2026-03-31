@@ -43,7 +43,7 @@ class PNG {
     public:
     PNG fromRaw(const std::vector<uint8_t>& bytesArray) 
     {
-        auto signature = VectorUtils::getSubset(bytesArray, (size_t) 0, (size_t) 7);
+        auto signature = VectorUtils::getSubset(bytesArray, 0, 8);
         if (!isSignatureValid(signature)) 
             throw std::runtime_error("Sigranure of given PNG file i incorect.");
 
