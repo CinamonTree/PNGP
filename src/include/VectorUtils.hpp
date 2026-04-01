@@ -34,8 +34,8 @@ class VectorUtils {
             input.begin() + to
         );
     }
-    /** Converts vector of 4 x 8 bit unsigned integers 
-     *  into single 32 bit unsigned integer with most significant bit ordering.
+    /** Converts vector of 4 x uint8 into 
+     *  single uint32 with most significant bit ordering.
      *@param input Vector of length exacly 4 of uint8 values.
      *@return Returns unsinged integer with 32 bit size
      */
