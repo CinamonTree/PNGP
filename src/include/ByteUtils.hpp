@@ -5,7 +5,7 @@
 #include <cstdint>
 #include <stdexcept>
 
-class VectorUtils 
+class ByteUtils 
 {
 public:
     /** Converts 4 bytes of uint8_t into single uint32_t with Big Edian
