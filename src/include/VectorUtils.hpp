@@ -36,20 +36,20 @@ public:
             input.begin() + from + length
         );
     }
-    /** Converts vector of 4 x uint8 into 
-     *  single uint32 with most significant bit ordering.
-     *@param input Vector of length exacly 4 of uint8 values.
-     *@return Returns unsigned integer with 32 bit size
+    /** Converts 4 bytes of uint8_t into single uint32_t with Big Edian
+     *  and moves given pointer by 4 bytes.
+     *@param input Reference pointer to byte array of uint8_t format.
+     *@return Single uint32_t value.
      */
-    static uint32_t toUInt32BE( const std::vector<uint8_t>& input )
+    static uint32_t readU32BE(const uint8_t*& input)
     {
-        if (input.size() != 4)
-            throw std::invalid_argument(
-                "Vector of uint8 must be exactly length 4 to convert into uint32.");
-        return
+        uint32_t value = 
             (uint32_t(input[0]) << 24) |
             (uint32_t(input[1]) << 16) |
             (uint32_t(input[2]) << 8)  |
-            (uint32_t(input[3]));
+            uint32_t(input[3]);
+
+        input += 4;
+        return value;
     }
 };
