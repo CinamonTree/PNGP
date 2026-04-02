@@ -52,4 +52,14 @@ public:
         input += 4;
         return value;
     }
+    /** Read one byte from given pointer and move it to the next
+     *@param input Reference pointer to byte array of uint8_t format.
+     *@return Single uint8_t value.
+     */
+    static uint8_t readU8(const uint8_t*& input)
+    {
+        uint8_t value = *input;
+        input += 1;
+        return value;
+    }
 };
