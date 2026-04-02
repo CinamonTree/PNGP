@@ -8,34 +8,6 @@
 class VectorUtils 
 {
 public:
-    /** Returns a subset of the vector.
-     *@param input Input vector
-     *@param from Start index (inclusive)
-     *@param length Length of subset
-     *@return Subset of vector as a NEW vector.
-     */
-    template <typename T>
-    static std::vector<T> getSubset(
-        const std::vector<T>& input,
-        size_t from,
-        size_t length
-    )
-    {
-        if (from > input.size())
-            throw std::out_of_range(
-                "Starting index out of bounds. Given: " +
-                std::to_string(from));
-
-        if (length > input.size() - from)
-            throw std::out_of_range(
-            "Subset is too long. from: " + std::to_string(from) +
-            " length: " + std::to_string(length));
-
-        return std::vector<T>(
-            input.begin() + from,
-            input.begin() + from + length
-        );
-    }
     /** Converts 4 bytes of uint8_t into single uint32_t with Big Edian
      *  and moves given pointer by 4 bytes.
      *@param input Reference pointer to byte array of uint8_t format.
