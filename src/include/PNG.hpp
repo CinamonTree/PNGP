@@ -2,7 +2,7 @@
 #include <cstdint>
 #include <stdexcept>
 
-#include "VectorUtils.hpp"
+#include "ByteUtils.hpp"
 
 class PNG 
 {
@@ -30,34 +30,28 @@ private:
     uint8_t filterMethod;
     uint8_t interlaceMethod;
 public:
-    PNG fromRaw(const std::vector<uint8_t>& bytesArray) 
+    PNG fromRaw(const std::vector<uint8_t>& PNGBytes) 
     {
+        const uint8_t* PNGCursor = PNGBytes.data();
         const size_t IHDR_START = 8;
 
-        auto signaturBytes = VectorUtils::getSubset(bytesArray, 0, 8);
-        if (!isSignatureValid(signaturBytes)) 
+        if (!isSignatureValid(PNGCursor)) 
             throw std::runtime_error("Sigranure of given PNG file is incorect.");
 
-        chunk IHDR;
-        IHDR.chunkType = ChunkType::IHDR;
-        IHDR.length = VectorUtils::toUInt32BE(VectorUtils::getSubset(bytesArray, IHDR_START, 4));
-        if (IHDR.length != 13)
-            throw std::runtime_error("Length of PNG header chunk is incorect. Given:" + IHDR.length);
-            
-        IHDR.data = VectorUtils::getSubset(bytesArray, IHDR_START + 4, IHDR.length);
-        this->width = VectorUtils::toUInt32BE(VectorUtils::getSubset(IHDR.data, 0, 4));
-        this->height = VectorUtils::toUInt32BE(VectorUtils::getSubset(IHDR.data, 4, 4));
-        this->bitDepth = IHDR.data[8];
-        this->colorType = IHDR.data[9];
-        this->compressionMethod = IHDR.data[10];
-        this->filterMethod = IHDR.data[11];
-        this->interlaceMethod = IHDR.data[12];
+        PNGCursor += IHDR_START;
+
+        this->width = ByteUtils::readU32BE(PNGCursor);
+        this->height = ByteUtils::readU32BE(PNGCursor);
+        this->bitDepth = ByteUtils::readU8(PNGCursor);
+        this->colorType = ByteUtils::readU8(PNGCursor);
+        this->compressionMethod = ByteUtils::readU8(PNGCursor);
+        this->filterMethod = ByteUtils::readU8(PNGCursor);
+        this->interlaceMethod = ByteUtils::readU8(PNGCursor);
     };
 private:
     PNG() {};
-    bool isSignatureValid(const std::vector<uint8_t>& signature) const
+    bool isSignatureValid(const uint8_t* signature) const
     {
-        if (signature.size() < 8) return false;
         return 
             signature[0] == 0x89 &&
             signature[1] == 0x50 &&
