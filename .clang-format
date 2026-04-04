@@ -1,0 +1,43 @@
+BasedOnStyle: Google
+
+# Wcięcia
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+
+# Długość linii
+ColumnLimit: 80
+
+# Nawiasy klamrowe (Allman style)
+BreakBeforeBraces: Allman
+
+# Ify itp.
+AllowShortIfStatementsOnASingleLine: true
+AllowShortLoopsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: None
+
+# Wyrównanie wskaźników
+PointerAlignment: Left
+
+# Spacje
+SpaceBeforeParens: ControlStatements
+SpacesInParentheses: false
+
+# Łamanie linii
+BreakBeforeBinaryOperators: NonAssignment
+
+# Wcięcia switch
+IndentCaseLabels: true
+
+# Puste linie
+KeepEmptyLinesAtTheStartOfBlocks: false
+
+# Include
+SortIncludes: true
+
+# Funkcje
+AlwaysBreakAfterReturnType: TopLevel
+
+# Inne
+Cpp11BracedListStyle: true
+Standard: Latest
