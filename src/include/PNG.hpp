@@ -27,10 +27,12 @@ class PNG
         ByteReader byteReader(bytes);
         PNG pngObject;
 
-        byteReader.expectBytes(PNG_SIGNATURE, 8, "PNG signature is incorrect.");
-        byteReader.expectBytes(IHDR_CHUNK_LENGTH, 4,
-                               "PNG signature is incorrect.");
-        byteReader.expectBytes(IHDR_TYPE, 4, "Type of IHDR chunk is incorect.");
+        byteReader.requireBytes(PNG_SIGNATURE, 8,
+                                "PNG signature is incorrect.");
+        byteReader.requireBytes(IHDR_CHUNK_LENGTH, 4,
+                                "PNG signature is incorrect.");
+        byteReader.requireBytes(IHDR_TYPE, 4,
+                                "Type of IHDR chunk is incorect.");
 
         pngObject.width = byteReader.readU32BE();
         pngObject.height = byteReader.readU32BE();

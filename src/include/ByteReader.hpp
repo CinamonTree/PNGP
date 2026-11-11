@@ -19,23 +19,22 @@ class ByteReader
     uint32_t readU32BE()
     {
         require(4);
-        const uint32_t value = (static_cast<uint32_t>(cursor[0]) << 24)
-                               | (static_cast<uint32_t>(cursor[1]) << 16)
-                               | (static_cast<uint32_t>(cursor[2]) << 8)
-                               | static_cast<uint32_t>(cursor[3]);
         cursor += 4;
-        return value;
+        return (static_cast<uint32_t>(cursor[0]) << 24)
+               | (static_cast<uint32_t>(cursor[1]) << 16)
+               | (static_cast<uint32_t>(cursor[2]) << 8)
+               | static_cast<uint32_t>(cursor[3]);
     }
     uint8_t readU8()
     {
         require(1);
         return *cursor++;
     }
-    void expectBytes(const uint8_t* expected, size_t count,
-                     const char* errorMessage)
+    void requireBytes(const uint8_t* required, size_t count,
+                      const char* errorMessage)
     {
         require(count);
-        if (std::memcmp(cursor, expected, count) != 0)
+        if (std::memcmp(cursor, required, count) != 0)
             throw std::runtime_error(errorMessage);
         cursor += count;
     }
