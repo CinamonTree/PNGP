@@ -24,9 +24,11 @@ add_library(${PROJECT_NAME_GLOBAL}_headers INTERFACE)
 target_include_directories(${PROJECT_NAME_GLOBAL}_headers INTERFACE src/include)
 
 # tests
-add_executable(${PROJECT_NAME_GLOBAL}_tests
-    tests/test_VectorUtils.cpp
+file(GLOB_RECURSE TEST_SOURCES CONFIGURE_DEPENDS
+    "${CMAKE_CURRENT_SOURCE_DIR}/tests/*.cpp"
 )
+
+add_executable(${PROJECT_NAME_GLOBAL}_tests ${TEST_SOURCES})
 
 target_link_libraries(${PROJECT_NAME_GLOBAL}_tests
     PRIVATE
