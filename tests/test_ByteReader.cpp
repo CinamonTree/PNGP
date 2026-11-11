@@ -18,7 +18,7 @@ TEST(ByteReaderTest, ReadsU32InBigEndianOrderAndAdvancesFourBytes)
     // Keep another four bytes available so the cursor regression fails an
     // assertion without reading outside the buffer.
     const std::vector<uint8_t> bytes = {0x89, 0xAB, 0xCD, 0xEF,
-                                      0x12, 0x34, 0x56, 0x78};
+                                        0x12, 0x34, 0x56, 0x78};
     ByteReader reader(bytes);
 
     EXPECT_EQ(reader.readU32BE(), 0x89ABCDEFu);

@@ -20,8 +20,14 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-add_library(${PROJECT_NAME_GLOBAL}_headers INTERFACE)
-target_include_directories(${PROJECT_NAME_GLOBAL}_headers INTERFACE src/include)
+add_library(${PROJECT_NAME_GLOBAL}_core STATIC
+    src/ByteReader.cpp
+    src/CRC.cpp
+    src/FileHandler.cpp
+    src/PNG.cpp
+    src/StringUtils.cpp
+)
+target_include_directories(${PROJECT_NAME_GLOBAL}_core PUBLIC src)
 
 # tests
 file(GLOB_RECURSE TEST_SOURCES CONFIGURE_DEPENDS
@@ -32,7 +38,7 @@ add_executable(${PROJECT_NAME_GLOBAL}_tests ${TEST_SOURCES})
 
 target_link_libraries(${PROJECT_NAME_GLOBAL}_tests
     PRIVATE
-    ${PROJECT_NAME_GLOBAL}_headers
+    ${PROJECT_NAME_GLOBAL}_core
     GTest::gtest_main
 )
 
