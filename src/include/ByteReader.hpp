@@ -19,11 +19,12 @@ class ByteReader
     uint32_t readU32BE()
     {
         require(4);
+        const uint32_t value = (static_cast<uint32_t>(cursor[0]) << 24)
+                               | (static_cast<uint32_t>(cursor[1]) << 16)
+                               | (static_cast<uint32_t>(cursor[2]) << 8)
+                               | static_cast<uint32_t>(cursor[3]);
         cursor += 4;
-        return (static_cast<uint32_t>(cursor[0]) << 24)
-               | (static_cast<uint32_t>(cursor[1]) << 16)
-               | (static_cast<uint32_t>(cursor[2]) << 8)
-               | static_cast<uint32_t>(cursor[3]);
+        return value;
     }
     uint8_t readU8()
     {
